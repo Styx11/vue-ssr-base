@@ -1,20 +1,32 @@
 {
   "name": "vue-ssr-demo",
   "version": "1.0.0",
-  "description": "",
+  "description": "practice demo of vue ssr",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist && npm run build:client && npm run build:server",
+    "build:client": "cross-env NODE_ENV=production webpack --config config/webpack.client.js --progress --hide-modules",
+    "build:server": "cross-env NODE_ENV=production webpack --config config/webpack.server.js --progress --hide-modules"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Styx11/vue-ssr-demo.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "github@styx11",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Styx11/vue-ssr-demo/issues"
   },
-  "homepage": "https://github.com/Styx11/vue-ssr-demo#readme"
+  "homepage": "https://github.com/Styx11/vue-ssr-demo#readme",
+  "devDependencies": {
+    "cross-env": "^7.0.2",
+    "rimraf": "^3.0.2",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3",
+    "webpack-merge": "^4.2.2",
+    "webpack-node-externals": "^1.7.2"
+  }
 }
