@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "rimraf dist && npm run build:client && npm run build:server",
-    "build:client": "cross-env NODE_ENV=production webpack --config config/webpack.client.js --progress --hide-modules",
-    "build:server": "cross-env NODE_ENV=production webpack --config config/webpack.server.js --progress --hide-modules"
+    "build:client": "cross-env NODE_ENV=production webpack --config config/webpack.client.js --hide-modules",
+    "build:server": "cross-env NODE_ENV=production webpack --config config/webpack.server.js --hide-modules"
   },
   "repository": {
     "type": "git",
@@ -21,12 +21,22 @@
   },
   "homepage": "https://github.com/Styx11/vue-ssr-demo#readme",
   "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "babel-loader": "^8.0.6",
     "cross-env": "^7.0.2",
+    "css-loader": "^3.4.2",
     "rimraf": "^3.0.2",
+    "vue-loader": "^15.9.0",
+    "vue-template-compiler": "^2.6.11",
     "webpack": "^4.42.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3",
     "webpack-merge": "^4.2.2",
     "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "vue": "^2.6.11",
+    "vue-server-renderer": "^2.6.11"
   }
 }
