@@ -9,6 +9,16 @@ module.exports = merge(baseConfig, {
     client: path.resolve(__dirname, '../src/client.entry.js'),
   },
 
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: [ 'babel-loader' ]
+      }
+    ]
+  },
+
   optimization: {
 
     // 默认使用 webpack v4+ 提供的全新的通用分块策略
