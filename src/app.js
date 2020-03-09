@@ -7,5 +7,5 @@ export default () => {
     render: h => h(Hello)
   });
   
-  return app;
+  return { app };
 };
