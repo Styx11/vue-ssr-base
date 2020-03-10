@@ -1,0 +1,9 @@
+{
+  "client.js": "/dist/client.bundle.js",
+  "client.js.map": "/dist/client.bundle.js.map",
+  "runtime.js": "/dist/runtime.bundle.js",
+  "runtime.js.map": "/dist/runtime.bundle.js.map",
+  "vendors~client.js": "/dist/vendors~client.bundle.js",
+  "vendors~client.js.map": "/dist/vendors~client.bundle.js.map",
+  "vue-ssr-client-manifest.json": "/dist/vue-ssr-client-manifest.json"
+}
