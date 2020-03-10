@@ -9,7 +9,13 @@ module.exports = {
     : 'development',
   output: {
     path: path.resolve(__dirname, '../dist'),
+    publicPath: '/dist/',
     filename: '[name].bundle.js'
+  },
+  resolve: {
+    alias: {
+      'public': path.resolve(__dirname, '../public')
+    }
   },
   devtool: 'cheap-source-map',
 
