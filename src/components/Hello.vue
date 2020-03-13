@@ -4,6 +4,8 @@
 
 <script>
 export default {
+  name: 'hello',
+  serverCacheKey: prop => true,
   methods: {
     sayHello () {
       console.log('a Vue component');
