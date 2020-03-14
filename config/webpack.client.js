@@ -2,7 +2,6 @@ const path = require('path');
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base');
-const ManifestPlugin = require('webpack-manifest-plugin');
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin');
 
 module.exports = merge(baseConfig, {
@@ -42,7 +41,6 @@ module.exports = merge(baseConfig, {
     new webpack.DefinePlugin({
       'process.env.VUE_ENV': '"client"'
     }),
-    new ManifestPlugin(),
     new VueSSRClientPlugin(),
   ]
 });
