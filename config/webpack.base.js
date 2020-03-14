@@ -10,7 +10,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/dist/',
-    filename: '[name].bundle.js'
+    filename: '[name].[chunkhash].js', //hash of chunk content
   },
   resolve: {
     alias: {
@@ -21,6 +21,10 @@ module.exports = {
 
   optimization: {
     minimize: true,
+
+    // 更改为路径命名规则
+    namedModules: true,
+    namedChunks: true,
 
     // 相当于 webpack.DefinePlugins 中设置 'process.env.NODE_ENV: JSON.stringifiy(...)'
     nodeEnv: process.env.NODE_ENV || 'development',
