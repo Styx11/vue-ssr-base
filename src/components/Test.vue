@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="title">hello {{ path }}</div>
+    <div>we're in route: {{ path }}</div>
   </div>
 </template>
 
@@ -14,9 +14,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-#title {
-  color: red;
-}
-</style>
