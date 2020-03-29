@@ -1,11 +1,15 @@
 import Vue from 'vue';
+import createRouter from './router';
 
 import App from './App.vue';
 
 export default () => {
+  const router = createRouter();
+
   const app = new Vue({
-    render: h => h(App)
+    router,
+    render: h => h(App),
   });
   
-  return { app };
+  return { app, router };
 };
