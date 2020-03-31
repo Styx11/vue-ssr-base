@@ -15,10 +15,6 @@ const renderer = createBundleRenderer(serverBundle, {
   runInNewContext: false,
   clientManifest,
   template,
-  cache: new LRU({
-    max: 1000,
-    maxAge: 1500
-  }),
 });
 
 // Server 相关
@@ -81,7 +77,7 @@ router.get('*', async ctx => {
     if (cacheable) microCache.set(ctx.url, html);
     ctx.state.html = html;
   } catch (e) {
-    ctx.throw();
+    ctx.throw(e.code || 500);
     console.log(e.message);
   }
 });
