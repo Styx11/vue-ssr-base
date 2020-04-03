@@ -4,6 +4,7 @@ const path = require('path');
 const send = require('koa-send');
 const LRU = require('lru-cache');
 const Router = require('@koa/router');
+const devMiddleware = require('./lib/devMiddleware');
 
 // SSR 相关
 // server bundle 创建的 renderer 会自动将带有 hash 值文件名的js文件引入到 template 中
@@ -89,6 +90,12 @@ server.use(distRouter.allowedMethods());
 server.use(router.routes());
 server.use(router.allowedMethods());
 
-server.listen(8080, () => {
-  console.log('Server running at localhost:8080');
-});
+const listen = () => {
+  server.listen(8080, () => {
+    console.log('Server running at localhost:8080');
+  });
+};
+
+process.env.NODE_ENV === 'production'
+  ? listen()
+  : devMiddleware(server).then(listen);
