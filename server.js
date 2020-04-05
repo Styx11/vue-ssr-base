@@ -8,6 +8,7 @@ const devMiddleware = require('./lib/devMiddleware');
 
 // SSR 相关
 // server bundle 创建的 renderer 会自动将带有 hash 值文件名的js文件引入到 template 中
+const isProd = process.env.NODE_ENV === 'production';
 const { createBundleRenderer } = require('vue-server-renderer');
 const serverBundle = require('./dist/vue-ssr-server-bundle.json');
 const clientManifest = require('./dist/vue-ssr-client-manifest.json');
@@ -19,18 +20,17 @@ const renderer = createBundleRenderer(serverBundle, {
 });
 
 // Server 相关
-const server = new Koa();
-const router = new Router();
-const distRouter = new Router({
-  prefix: '/dist'
-});
-
 // 目前 app 都应是非用户特定的，所以直接使用 micro-cache
 const isCacheable = req => true;
 const microCache = new LRU({
   max: 300,
   maxAge: 1000,
   stale: true //允许过期内容，减少请求峰值
+});
+const server = new Koa();
+const router = new Router();
+const distRouter = new Router({
+  prefix: '/dist'
 });
 
 // 浏览器最大缓存时间视情况更改
@@ -44,21 +44,15 @@ distRouter.get('*', async ctx => {
   try {
     await send(ctx, filename, { root: path.resolve(__dirname, './dist'), maxage });
   } catch (e) {
-    ctx.throw();
-  }
-});
-
-router.get('/manifest.json', async ctx => {
-  try {
-    await send(ctx, path.resolve('./manifest.json'), { maxage });
-  } catch (e) {
-    ctx.throw(e);
+    ctx.throw(404);
+    console.error(e.message);
   }
 });
 
 // Render 相关路由
 router.get('*', async (ctx, next) => {
   await next();
+  ctx.status = 200;
   ctx.body = ctx.state.html;
 });
 
@@ -73,29 +67,32 @@ router.get('*', async ctx => {
 
   const context = { title: 'Hello SSR', url: ctx.url };
   try {
-    const html = await renderer.renderToString(context);
+    const html = await render.renderer.renderToString(context);
 
     if (cacheable) microCache.set(ctx.url, html);
     ctx.state.html = html;
   } catch (e) {
     ctx.throw(e.code || 500);
-    console.log(e.message);
+    console.error(e.message);
   }
 });
 
 // 更特定 (specific) 路由放在前面
-server.use(distRouter.routes());
-server.use(distRouter.allowedMethods());
+if (isProd) {
+  server.use(distRouter.routes());
+  server.use(distRouter.allowedMethods());
+}
 
-server.use(router.routes());
-server.use(router.allowedMethods());
-
+// 最后挂载通配符 * 路由
+// 以让渲染文件请求通过 devMiddleware
 const listen = () => {
+  server.use(router.routes());
+  server.use(router.allowedMethods());
   server.listen(8080, () => {
     console.log('Server running at localhost:8080');
   });
 };
 
-process.env.NODE_ENV === 'production'
+isProd
   ? listen()
   : devMiddleware(server).then(listen);
