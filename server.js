@@ -29,8 +29,7 @@ const render = {
 };
 
 // Server 相关
-// 目前 app 都应是非用户特定的，所以直接使用 micro-cache
-const isCacheable = req => true;
+const isCacheable = _ => isProd;
 const microCache = new LRU({
   max: 300,
   maxAge: 1000,
