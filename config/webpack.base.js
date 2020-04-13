@@ -1,7 +1,7 @@
 const path = require('path');
 const VueLoaderPlugin = require('vue-loader/lib/plugin-webpack4');
 
-const isProd = !!process.env.NODE_ENV;
+const isProd = process.env.NODE_ENV === 'production';
 
 module.exports = {
   mode: isProd
