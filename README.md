@@ -44,6 +44,12 @@ npm install
 # build for production with minification
 npm run build
 
+# dev mode in webpack4
+npm run dev
+
+# start the production node server
+npm run start
+
 ```
 
 ## 📄LICENSE
