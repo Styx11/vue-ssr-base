@@ -16,7 +16,9 @@
 
 [下篇](https://styx11.github.io/blog/FontEnd_Construction/ssr_third_part.html) 重点总结基于 Webpack4 和 Koa2 的开发模式，其中涉及中间件的适配
 
-[devMiddleware 源码解析](https://styx11.github.io/blog/FontEnd_Construction/devMiddleware.html) 总结我在适配`webpack-dev-middleware`中间件过程中通过阅读源码学习到的 Webpack 和它是如何协调工作的
+[devMiddleware 源码解析](https://styx11.github.io/blog/FontEnd_Construction/devMiddleware.html) 总结在适配`webpack-dev-middleware`中间件过程中我所学到的
+
+[hotMiddleware 源码解析](https://styx11.github.io/blog/FontEnd_Construction/hotMiddleware.html) 总结在适配`webpack-hot-middleware`中间件过程中我所学到的
 
 ## ✨Features
 这个基础结构提供了以下功能：
